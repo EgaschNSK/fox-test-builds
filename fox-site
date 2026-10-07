@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+FOX_SITE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+FOX_SITE_NODE_DIR="$HOME/.local/share/fox-builds-tools/node/bin"
+if [[ -x "$FOX_SITE_NODE_DIR/node" ]]; then
+    export PATH="$FOX_SITE_NODE_DIR:$PATH"
+fi
+if [[ $# -eq 0 ]]; then
+    echo 'Usage: fox-site upload|account|test [arguments...]' >&2
+    exit 2
+fi
+cd -- "$FOX_SITE_DIR"
+exec npm run "$1" -- "${@:2}"

@@ -10,17 +10,28 @@ import { basename, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 const [input, ...args] = process.argv.slice(2);
 const options = {};
-for (let i = 0; i < args.length; i += 2) options[args[i]] = args[i + 1];
+for (let i = 0; i < args.length; i += 2) {
+  if (
+    !["--mode", "--branch", "--version", "--notes", "--device"].includes(
+      args[i],
+    ) ||
+    args[i + 1] === undefined ||
+    args[i + 1].startsWith("--")
+  )
+    throw new Error(
+      "Each option needs a value. Put multi-word versions in quotes.",
+    );
+  options[args[i]] = args[i + 1];
+}
 const mode = options["--mode"];
 if (
   !input ||
   !["local", "remote"].includes(mode) ||
   !["12.1", "14.1", "16.0"].includes(options["--branch"]) ||
-  !options["--version"] ||
-  !options["--notes"]
+  !options["--version"]
 )
   throw new Error(
-    "Usage: npm run upload -- FILE --mode local|remote --branch 14.1 --version VERSION --notes notes.txt [--device MODEL]",
+    "Usage: npm run upload -- FILE --mode local|remote --branch 14.1 --version VERSION [--notes notes.txt] [--device MODEL]",
   );
 const file = resolve(input),
   filename = basename(file);
@@ -41,9 +52,9 @@ const record = {
   bytes: statSync(file).size,
   sha256,
   status: "testing",
-  changelog: readFileSync(options["--notes"], "utf8")
-    .split(/\r?\n/)
-    .filter(Boolean),
+  changelog: options["--notes"]
+    ? readFileSync(options["--notes"], "utf8").split(/\r?\n/).filter(Boolean)
+    : [],
 };
 const run = (argv) => {
   const result = spawnSync("npx", ["--no-install", "wrangler", ...argv], {

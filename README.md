@@ -46,6 +46,15 @@ git push -u origin main
 
 Workflow публикует только `public/`. ZIP/IMG, аккаунты, пароли и локальные базы в Git не попадают. Перед push проверь `git status`.
 
+На этом компьютере можно запускать команды из любой папки через `fox-site` — он сам подключает Node и выбирает каталог проекта:
+
+```sh
+~/fox-builds-site/fox-site account create tester_name --remote
+~/fox-builds-site/fox-site upload /path/OrangeFox-a55x-test.zip --mode remote --branch 12.1 --version "07.10.2026 slottest"
+```
+
+`--notes /path/changelog.txt` необязателен; если его нет, пустой changelog на сайте не показывается. Название версии с пробелами заключай в кавычки.
+
 ## Аккаунты тестеров
 
 ```sh
@@ -59,7 +68,7 @@ npm run account -- disable tester_name --remote
 
 ## Загрузка сборки
 
-Запиши changelog по одному пункту на строку в текстовый файл вне `public/`:
+При желании запиши changelog на английском, по одному пункту на строку, в текстовый файл вне `public/`:
 
 ```sh
 npm run upload -- /path/OrangeFox-a55x-test.zip \

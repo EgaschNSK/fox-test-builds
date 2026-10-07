@@ -84,6 +84,7 @@ function render() {
     text(".build-size", size(b.bytes));
     text(".build-file", b.filename);
     text(".build-hash", b.sha256);
+    card.querySelector("details").hidden = b.changelog.length === 0;
     b.changelog.forEach((line) => {
       const item = document.createElement("li");
       item.textContent = line;
