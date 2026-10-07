@@ -4,8 +4,7 @@ const json = (body, status = 200) =>
     status,
     headers: { "Content-Type": "application/json; charset=utf-8" },
   });
-const noAccess = () =>
-  json({ error: "Войдите в аккаунт, чтобы продолжить." }, 401);
+const noAccess = () => json({ error: "Please sign in to continue." }, 401);
 const now = () => Math.floor(Date.now() / 1000);
 const sessionToken = (request) =>
   /^Bearer ([A-Za-z0-9_-]{43})$/.exec(
@@ -45,22 +44,22 @@ async function route(request, env) {
   const url = new URL(request.url);
   if (url.pathname === "/api/login" && request.method === "POST") {
     if (request.headers.get("Origin") !== env.ALLOWED_ORIGIN)
-      return json({ error: "Недопустимый источник запроса." }, 403);
+      return json({ error: "Request origin is not allowed." }, 403);
     if (!request.headers.get("Content-Type")?.startsWith("application/json"))
-      return json({ error: "Неверный формат запроса." }, 415);
+      return json({ error: "Unsupported request format." }, 415);
     if (Number(request.headers.get("Content-Length") || 0) > 4096)
-      return json({ error: "Слишком большой запрос." }, 413);
+      return json({ error: "The request is too large." }, 413);
     const text = await request.text();
     if (text.length > 4096)
-      return json({ error: "Слишком большой запрос." }, 413);
+      return json({ error: "The request is too large." }, 413);
     let body;
     try {
       body = JSON.parse(text);
     } catch {
-      return json({ error: "Неверный запрос." }, 400);
+      return json({ error: "Invalid request." }, 400);
     }
     if (!body || typeof body !== "object" || Array.isArray(body))
-      return json({ error: "Неверный запрос." }, 400);
+      return json({ error: "Invalid request." }, 400);
     const { username, password } = body;
     if (
       typeof username !== "string" ||
@@ -68,7 +67,7 @@ async function route(request, env) {
       typeof password !== "string" ||
       Buffer.byteLength(password) > 256
     )
-      return json({ error: "Неверный логин или пароль." }, 401);
+      return json({ error: "Incorrect username or password." }, 401);
     const ip = request.headers.get("CF-Connecting-IP") || "local";
     const [ipLimit, userLimit] = await Promise.all([
       env.LOGIN_LIMITER.limit({ key: `ip:${ip}` }),
@@ -76,7 +75,7 @@ async function route(request, env) {
     ]);
     if (!ipLimit.success || !userLimit.success)
       return json(
-        { error: "Слишком много попыток. Попробуйте через минуту." },
+        { error: "Too many attempts. Please try again in a minute." },
         429,
       );
     const user = await env.DB.prepare(
@@ -89,7 +88,7 @@ async function route(request, env) {
       user?.password_hash || DUMMY_HASH,
     );
     if (!valid || !user?.active)
-      return json({ error: "Неверный логин или пароль." }, 401);
+      return json({ error: "Incorrect username or password." }, 401);
     const raw = token(),
       expires = now() + 12 * 60 * 60;
     await env.DB.batch([
@@ -112,10 +111,11 @@ async function route(request, env) {
       .first();
     if (!ticket) return noAccess();
     const build = (await catalog(env)).find((b) => b.id === ticket.build_id);
-    if (!build) return json({ error: "Билд больше не доступен." }, 404);
+    if (!build)
+      return json({ error: "This build is no longer available." }, 404);
     const object = await env.BUILDS.get(`builds/${build.id}/${build.filename}`);
     if (!object || object.size !== build.bytes)
-      return json({ error: "Файл временно недоступен." }, 404);
+      return json({ error: "This file is temporarily unavailable." }, 404);
     const headers = new Headers({
       "Content-Type": "application/octet-stream",
       "Content-Length": String(object.size),
@@ -140,7 +140,7 @@ async function route(request, env) {
   );
   if (match && request.method === "POST") {
     const build = (await catalog(env)).find((b) => b.id === match[1]);
-    if (!build) return json({ error: "Билд не найден." }, 404);
+    if (!build) return json({ error: "Build not found." }, 404);
     const raw = token();
     await env.DB.prepare(
       "INSERT INTO tickets(token_hash,session_hash,build_id,expires) VALUES(?,?,?,?)",
@@ -149,7 +149,7 @@ async function route(request, env) {
       .run();
     return json({ url: `${url.origin}/download/${raw}` });
   }
-  return json({ error: "Страница не найдена." }, 404);
+  return json({ error: "Page not found." }, 404);
 }
 export default {
   async fetch(request, env) {
@@ -157,7 +157,7 @@ export default {
     const allowed = origin === env.ALLOWED_ORIGIN;
     let response;
     if (origin && !allowed)
-      response = json({ error: "Недопустимый источник запроса." }, 403);
+      response = json({ error: "Request origin is not allowed." }, 403);
     else if (request.method === "OPTIONS")
       response = new Response(null, { status: 204 });
     else
@@ -165,7 +165,10 @@ export default {
         response = await route(request, env);
       } catch {
         response = json(
-          { error: "Сервис временно недоступен. Попробуйте позже." },
+          {
+            error:
+              "The service is temporarily unavailable. Please try again later.",
+          },
           503,
         );
       }

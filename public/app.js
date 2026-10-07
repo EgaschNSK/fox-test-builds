@@ -36,13 +36,13 @@ async function api(path, options = {}) {
   const data = await response.json();
   if (!response.ok) {
     if (response.status === 401 && path !== "/api/login")
-      showLogin("Сессия закончилась. Войди ещё раз.");
-    throw new Error(data.error || "Не удалось выполнить запрос.");
+      showLogin("Your session has expired. Please sign in again.");
+    throw new Error(data.error || "The request failed. Please try again.");
   }
   return data;
 }
 function size(bytes) {
-  return `${(bytes / 1048576).toLocaleString("ru-RU", { maximumFractionDigits: 1 })} МБ`;
+  return `${(bytes / 1048576).toLocaleString("en-GB", { maximumFractionDigits: 1 })} MiB`;
 }
 function render() {
   const search = $("search").value.trim().toLowerCase();
@@ -58,7 +58,7 @@ function render() {
     )
     .sort((a, b) => new Date(b.date) - new Date(a.date));
   $("build-count").textContent =
-    `СБОРОК: ${visible.length.toString().padStart(2, "0")}`;
+    `BUILDS: ${visible.length.toString().padStart(2, "0")}`;
   $("empty").hidden = visible.length !== 0;
   $("build-list").replaceChildren();
   visible.forEach((b) => {
@@ -69,11 +69,11 @@ function render() {
     text(".build-branch", `FOX ${b.branch}`);
     text(
       ".build-badge",
-      b.demo ? "Макет" : b.status === "archived" ? "Архив" : "Тестовая",
+      b.demo ? "Preview" : b.status === "archived" ? "Archived" : "Testing",
     );
     const date = card.querySelector("time");
     date.dateTime = b.date;
-    date.textContent = new Date(b.date).toLocaleDateString("ru-RU", {
+    date.textContent = new Date(b.date).toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
       year: "numeric",
@@ -92,9 +92,9 @@ function render() {
     card.querySelector(".copy-hash").addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(b.sha256);
-        toast("SHA256 скопирован.");
+        toast("SHA256 copied.");
       } catch {
-        toast("Копирование недоступно. Выдели SHA256 вручную.");
+        toast("Copying is unavailable. Select and copy the SHA256 manually.");
       }
     });
     const download = card.querySelector(".download");
@@ -107,14 +107,14 @@ function render() {
         );
         const target = new URL(result.url);
         if (target.origin !== new URL(base).origin)
-          throw new Error("Недопустимый адрес скачивания.");
+          throw new Error("Invalid download URL.");
         const link = document.createElement("a");
         link.href = target.href;
         link.rel = "noreferrer";
         document.body.append(link);
         link.click();
         link.remove();
-        toast("Скачивание начинается.");
+        toast("Your download is starting.");
       } catch (e) {
         toast(e.message);
       } finally {
@@ -139,7 +139,7 @@ async function enter() {
     if (token) {
       $("catalog-error").textContent = e.message;
       $("catalog-error").hidden = false;
-      $("build-count").textContent = "СБОРКИ НЕДОСТУПНЫ";
+      $("build-count").textContent = "BUILDS UNAVAILABLE";
     }
   }
 }
@@ -147,11 +147,11 @@ $("year").textContent = new Date().getFullYear();
 $("show-password").addEventListener("click", () => {
   const show = $("password").type === "password";
   $("password").type = show ? "text" : "password";
-  $("show-password").textContent = show ? "Скрыть" : "Показать";
+  $("show-password").textContent = show ? "Hide" : "Show";
   $("show-password").setAttribute("aria-pressed", String(show));
   $("show-password").setAttribute(
     "aria-label",
-    show ? "Скрыть пароль" : "Показать пароль",
+    show ? "Hide password" : "Show password",
   );
 });
 $("login-form").addEventListener("submit", async (event) => {
@@ -173,7 +173,7 @@ $("login-form").addEventListener("submit", async (event) => {
   } catch (e) {
     $("login-error").textContent =
       e instanceof TypeError
-        ? "Сервер входа недоступен. Проверь соединение или попробуй позже."
+        ? "Sign-in is unavailable. Check your connection or try again later."
         : e.message;
     $("login-error").hidden = false;
   } finally {
@@ -185,7 +185,7 @@ $("logout").addEventListener("click", async () => {
     await api("/api/logout", { method: "POST" });
     showLogin();
   } catch (e) {
-    toast("Не удалось завершить сессию на сервере. Повтори выход.");
+    toast("Could not end your session. Please try signing out again.");
   }
 });
 for (const button of document.querySelectorAll(".tab"))
@@ -204,6 +204,8 @@ if (token)
   enter().catch((e) => {
     if (token)
       showLogin(
-        e instanceof TypeError ? "Сервер входа недоступен." : e.message,
+        e instanceof TypeError
+          ? "Sign-in is unavailable. Please try again later."
+          : e.message,
       );
   });

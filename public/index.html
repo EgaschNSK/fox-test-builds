@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Закрытая площадка тестовых сборок OrangeFox для Galaxy A55 от EgaschNSK."
+      content="Private OrangeFox test builds for the Galaxy A55 by EgaschNSK."
     />
     <meta name="referrer" content="no-referrer" />
     <meta
@@ -13,15 +13,15 @@
       content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src https: http://localhost:8787; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'"
     />
     <title>Fox Builds — EgaschNSK</title>
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./style.css" />
     <script type="module" src="./app.js"></script>
   </head>
   <body>
     <div class="site-shell">
       <header class="topbar">
-        <a class="brand" href="./" aria-label="Fox Builds, главная"
-          ><img src="./favicon.svg" width="36" height="36" alt="" /><span
+        <a class="brand" href="./" aria-label="Fox Builds home"
+          ><span
             >fox<span class="brand-light">builds</span
             ><small>by EgaschNSK</small></span
           ></a
@@ -32,7 +32,7 @@
         <div id="account" hidden>
           <span id="username"></span
           ><button id="logout" class="button ghost" type="button">
-            Выйти <span aria-hidden="true">↗</span>
+            Sign out <span aria-hidden="true">↗</span>
           </button>
         </div>
       </header>
@@ -42,11 +42,11 @@
             <div class="eyebrow">
               <span class="tiny-line"></span> ORANGEFOX · PRIVATE BUILDS
             </div>
-            <h1>Следующий билд.<br /><span>В твоих руках.</span></h1>
+            <h1>The next build.<br /><span>In your hands.</span></h1>
             <p class="intro-copy">
-              Тестовые сборки OrangeFox для Galaxy A55.<br />Свежие изменения,
-              проверка на устройстве<br class="desktop-break" />
-              и обратная связь — в одном месте.
+              OrangeFox test builds for the Galaxy A55.<br />Latest changes,
+              ready for testing<br class="desktop-break" />
+              before the next release.
             </p>
             <div class="device-art" aria-hidden="true">
               <svg viewBox="0 0 480 280">
@@ -81,11 +81,16 @@
                     stroke="#2b2e29"
                   />
                   <circle cx="70" cy="15" r="3" fill="#41433e" />
-                  <path
-                    d="M31 69l17 30 22-12 22 12 17-30-9 73-30 23-30-23z"
-                    fill="#ff8a43"
-                  />
-                  <path d="M48 112l22 15 22-15-22 36z" fill="#101210" />
+                  <text
+                    x="70"
+                    y="126"
+                    fill="#a8ae9f"
+                    text-anchor="middle"
+                    font-family="monospace"
+                    font-size="24"
+                  >
+                    A55X
+                  </text>
                   <path
                     d="M35 184h70"
                     stroke="#353a32"
@@ -104,13 +109,13 @@
           </div>
           <div class="login-panel">
             <div class="panel-label">
-              <span class="status-dot"></span> Доступ для тестеров
+              <span class="status-dot"></span> Tester access
               <span class="label-code">[ AUTH ]</span>
             </div>
-            <h2>Рады видеть.</h2>
-            <p class="muted">Войди, чтобы посмотреть сборки и скачать файлы.</p>
+            <h2>Welcome.</h2>
+            <p class="muted">Sign in to browse builds and download files.</p>
             <form id="login-form">
-              <label for="login">Логин</label
+              <label for="login">Username</label
               ><input
                 id="login"
                 name="username"
@@ -119,9 +124,9 @@
                 spellcheck="false"
                 required
                 maxlength="40"
-                placeholder="Твой логин"
+                placeholder="Your username"
               />
-              <label for="password">Пароль</label>
+              <label for="password">Password</label>
               <div class="password-field">
                 <input
                   id="password"
@@ -130,33 +135,33 @@
                   autocomplete="current-password"
                   required
                   maxlength="256"
-                  placeholder="Твой пароль"
+                  placeholder="Your password"
                 /><button
                   id="show-password"
                   type="button"
-                  aria-label="Показать пароль"
+                  aria-label="Show password"
                   aria-pressed="false"
                 >
-                  Показать
+                  Show
                 </button>
               </div>
               <p id="login-error" class="form-error" role="alert" hidden></p>
               <button id="login-submit" class="button primary" type="submit">
-                Войти в каталог <span aria-hidden="true">↗</span>
+                Sign in <span aria-hidden="true">↗</span>
               </button>
             </form>
             <div class="access-note">
               <span aria-hidden="true">⌘</span>
               <div>
-                <strong>Пока нет доступа?</strong>
+                <strong>Need access?</strong>
                 <p>
-                  Логин и пароль выдаёт EgaschNSK.<br />Попроси аккаунт у
-                  мейнтейнера.
+                  EgaschNSK creates tester accounts.<br />Ask the maintainer for
+                  a username and password.
                 </p>
               </div>
             </div>
             <div class="panel-footer">
-              Доступ к файлам проверяется при каждом скачивании.
+              Access is checked before every download.
             </div>
           </div>
         </section>
@@ -166,22 +171,22 @@
               <div class="eyebrow">
                 <span class="tiny-line"></span> A55X · TEST CHANNEL
               </div>
-              <h1>Сборки <span>для своих.</span></h1>
+              <h1>Builds <span>for testers.</span></h1>
               <p class="muted">
-                Выбери ветку. Изучи изменения. Проверь на устройстве.
+                Choose a branch. Read the changes. Test on your device.
               </p>
             </div>
             <div class="catalog-mark" aria-hidden="true">/ A55</div>
           </div>
           <div class="catalog-toolbar">
-            <div class="tabs" role="group" aria-label="Ветка OrangeFox">
+            <div class="tabs" role="group" aria-label="OrangeFox branch">
               <button
                 class="tab active"
                 data-branch="all"
                 type="button"
                 aria-pressed="true"
               >
-                Все сборки</button
+                All builds</button
               ><button
                 class="tab"
                 data-branch="16.0"
@@ -210,32 +215,32 @@
               ><input
                 id="search"
                 type="search"
-                placeholder="Найти сборку…"
-                aria-label="Поиск сборок"
+                placeholder="Find a build…"
+                aria-label="Search builds"
             /></label>
           </div>
           <div class="list-heading">
-            <span id="build-count">Загрузка сборок…</span
+            <span id="build-count">Loading builds…</span
             ><label class="archive-toggle"
-              ><input id="show-archive" type="checkbox" />Показать архив</label
+              ><input id="show-archive" type="checkbox" />Show archived</label
             >
           </div>
           <p id="catalog-error" class="form-error" role="alert" hidden></p>
           <div id="build-list" class="build-list" aria-live="polite"></div>
           <div id="empty" class="empty" hidden>
             <span aria-hidden="true">[ · · · ]</span>
-            <h2>Здесь пока тихо.</h2>
+            <h2>No builds yet.</h2>
             <p class="muted">
-              Сборки появятся после публикации.<br />Если включён фильтр,
-              попробуй другую ветку или поиск.
+              New builds will appear here when published.<br />If you have a
+              filter enabled, try another branch or search.
             </p>
           </div>
           <div class="tester-note">
             <span class="note-icon" aria-hidden="true">!</span>
             <p>
-              <strong>Это тестовые сборки.</strong> Перед прошивкой сохрани
-              важные данные. Если заметишь проблему, передай мейнтейнеру версию
-              сборки и recovery.log.
+              <strong>These are test builds.</strong> Back up important data
+              before flashing. If you find an issue, send the build version and
+              recovery.log to the maintainer.
             </p>
           </div>
         </section>
@@ -244,7 +249,7 @@
         <span
           >© <span id="year"></span> EgaschNSK
           <span class="footer-divider">/</span> Fox Builds</span
-        ><span>Неофициальные тестовые сборки OrangeFox.</span>
+        ><span>Unofficial OrangeFox test builds.</span>
       </footer>
     </div>
     <div id="toast" class="toast" role="status" hidden></div>
@@ -262,7 +267,7 @@
             <p class="build-device muted"></p>
           </div>
           <button class="button download" type="button">
-            Скачать <span aria-hidden="true">↓</span>
+            Download <span aria-hidden="true">↓</span>
           </button>
         </div>
         <div class="build-specs">
@@ -270,12 +275,12 @@
           ><span class="build-file"></span>
         </div>
         <details>
-          <summary>Что изменилось <span aria-hidden="true">+</span></summary>
+          <summary>Changelog <span aria-hidden="true">+</span></summary>
           <ul class="changelog"></ul>
         </details>
         <div class="hash-row">
           <span>SHA256</span><code class="build-hash"></code
-          ><button class="copy-hash" type="button">Копировать</button>
+          ><button class="copy-hash" type="button">Copy</button>
         </div>
       </article>
     </template>
