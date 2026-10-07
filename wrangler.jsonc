@@ -3,20 +3,30 @@
   "main": "worker/index.mjs",
   "compatibility_date": "2026-10-07",
   "compatibility_flags": ["nodejs_compat"],
-  "vars": { "ALLOWED_ORIGIN": "http://localhost:8080" },
-  "r2_buckets": [{ "binding": "BUILDS", "bucket_name": "fox-test-builds" }],
+  "vars": {
+    "ALLOWED_ORIGIN": "https://egaschnsk.github.io",
+  },
+  "r2_buckets": [
+    {
+      "binding": "BUILDS",
+      "bucket_name": "fox-test-builds",
+    },
+  ],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "fox-test-builds",
-      "database_id": "REPLACE_AFTER_D1_CREATE",
+      "database_id": "6ca39af8-9c8e-45fe-816a-77703f4edda2",
     },
   ],
   "ratelimits": [
     {
       "name": "LOGIN_LIMITER",
       "namespace_id": "1001",
-      "simple": { "limit": 5, "period": 60 },
+      "simple": {
+        "limit": 5,
+        "period": 60,
+      },
     },
   ],
 }

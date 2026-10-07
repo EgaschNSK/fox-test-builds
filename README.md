@@ -1,6 +1,10 @@
 # Fox test builds
 
 Закрытый каталог тестовых сборок OrangeFox для Galaxy A55 от EgaschNSK.
+
+Сайт: https://egaschnsk.github.io/fox-test-builds/
+
+API: https://fox-test-builds-api.fox-test-builds.workers.dev
 Сайт размещается на GitHub Pages, аккаунты — в Cloudflare D1, файлы — в приватном Cloudflare R2. Публичной регистрации нет.
 
 ## Требования
