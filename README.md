@@ -53,6 +53,8 @@ Workflow публикует только `public/`. ZIP/IMG, аккаунты, �
 ~/fox-builds-site/fox-site upload /path/OrangeFox-a55x-test.zip --mode remote --branch 12.1 --version "07.10.2026 slottest"
 ```
 
+Разделитель `--` после `account` или `upload` можно оставлять или опускать.
+
 `--notes /path/changelog.txt` необязателен; если его нет, пустой changelog на сайте не показывается. Название версии с пробелами заключай в кавычки.
 
 ## Аккаунты тестеров

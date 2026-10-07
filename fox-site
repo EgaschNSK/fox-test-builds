@@ -9,5 +9,10 @@ if [[ $# -eq 0 ]]; then
     echo 'Usage: fox-site upload|account|test [arguments...]' >&2
     exit 2
 fi
+FOX_SITE_COMMAND="$1"
+shift
+if [[ "${1-}" == "--" ]]; then
+    shift
+fi
 cd -- "$FOX_SITE_DIR"
-exec npm run "$1" -- "${@:2}"
+exec npm run "$FOX_SITE_COMMAND" -- "$@"
