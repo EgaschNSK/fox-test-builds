@@ -1,0 +1,22 @@
+{
+  "name": "fox-test-builds",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "dev:api": "wrangler dev --local --var ALLOWED_ORIGIN:http://localhost:8080",
+    "check:worker": "wrangler deploy --dry-run --outdir .local/worker-build",
+    "account": "node scripts/account.mjs",
+    "upload": "node scripts/upload.mjs",
+    "dev:site": "python3 -m http.server 8080 --bind 127.0.0.1 --directory public"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "wrangler": "^4.148.0"
+  },
+  "overrides": {
+    "sharp": "^0.35.5"
+  }
+}

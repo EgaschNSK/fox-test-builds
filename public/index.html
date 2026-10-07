@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Закрытая площадка тестовых сборок OrangeFox для Galaxy A55 от EgaschNSK."
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src https: http://localhost:8787; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <title>Fox Builds — EgaschNSK</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Fox Builds, главная"
+          ><img src="./favicon.svg" width="36" height="36" alt="" /><span
+            >fox<span class="brand-light">builds</span
+            ><small>by EgaschNSK</small></span
+          ></a
+        >
+        <span class="header-note"
+          ><span class="status-dot"></span> Galaxy A55 / test channel</span
+        >
+        <div id="account" hidden>
+          <span id="username"></span
+          ><button id="logout" class="button ghost" type="button">
+            Выйти <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </header>
+      <main>
+        <section id="login-view" class="login-layout">
+          <div class="intro">
+            <div class="eyebrow">
+              <span class="tiny-line"></span> ORANGEFOX · PRIVATE BUILDS
+            </div>
+            <h1>Следующий билд.<br /><span>В твоих руках.</span></h1>
+            <p class="intro-copy">
+              Тестовые сборки OrangeFox для Galaxy A55.<br />Свежие изменения,
+              проверка на устройстве<br class="desktop-break" />
+              и обратная связь — в одном месте.
+            </p>
+            <div class="device-art" aria-hidden="true">
+              <svg viewBox="0 0 480 280">
+                <defs>
+                  <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#ff8b48" />
+                    <stop offset="1" stop-color="#614538" />
+                  </linearGradient>
+                </defs>
+                <path
+                  class="diagram"
+                  d="M10 155h118l35-35h198l25-25h88M50 211h174l28-28h160M173 23v44l-31 31v120M354 28v33l36 36v120"
+                />
+                <g transform="translate(197 28) rotate(12 70 105)">
+                  <rect
+                    x="0"
+                    y="0"
+                    width="140"
+                    height="224"
+                    rx="23"
+                    fill="#161716"
+                    stroke="url(#edge)"
+                    stroke-width="2"
+                  />
+                  <rect
+                    x="7"
+                    y="7"
+                    width="126"
+                    height="210"
+                    rx="18"
+                    fill="#101210"
+                    stroke="#2b2e29"
+                  />
+                  <circle cx="70" cy="15" r="3" fill="#41433e" />
+                  <path
+                    d="M31 69l17 30 22-12 22 12 17-30-9 73-30 23-30-23z"
+                    fill="#ff8a43"
+                  />
+                  <path d="M48 112l22 15 22-15-22 36z" fill="#101210" />
+                  <path
+                    d="M35 184h70"
+                    stroke="#353a32"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                </g>
+                <circle cx="128" cy="155" r="4" fill="#ff8a43" />
+                <circle cx="390" cy="97" r="4" fill="#858f72" />
+              </svg>
+              <span class="art-label">A55X <span>EXYNOS 1480</span></span>
+            </div>
+            <div class="intro-bottom">
+              <span>01 / GET ACCESS</span><span>TEST. REPORT. REPEAT.</span>
+            </div>
+          </div>
+          <div class="login-panel">
+            <div class="panel-label">
+              <span class="status-dot"></span> Доступ для тестеров
+              <span class="label-code">[ AUTH ]</span>
+            </div>
+            <h2>Рады видеть.</h2>
+            <p class="muted">Войди, чтобы посмотреть сборки и скачать файлы.</p>
+            <form id="login-form">
+              <label for="login">Логин</label
+              ><input
+                id="login"
+                name="username"
+                autocomplete="username"
+                autocapitalize="none"
+                spellcheck="false"
+                required
+                maxlength="40"
+                placeholder="Твой логин"
+              />
+              <label for="password">Пароль</label>
+              <div class="password-field">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                  maxlength="256"
+                  placeholder="Твой пароль"
+                /><button
+                  id="show-password"
+                  type="button"
+                  aria-label="Показать пароль"
+                  aria-pressed="false"
+                >
+                  Показать
+                </button>
+              </div>
+              <p id="login-error" class="form-error" role="alert" hidden></p>
+              <button id="login-submit" class="button primary" type="submit">
+                Войти в каталог <span aria-hidden="true">↗</span>
+              </button>
+            </form>
+            <div class="access-note">
+              <span aria-hidden="true">⌘</span>
+              <div>
+                <strong>Пока нет доступа?</strong>
+                <p>
+                  Логин и пароль выдаёт EgaschNSK.<br />Попроси аккаунт у
+                  мейнтейнера.
+                </p>
+              </div>
+            </div>
+            <div class="panel-footer">
+              Доступ к файлам проверяется при каждом скачивании.
+            </div>
+          </div>
+        </section>
+        <section id="builds-view" hidden>
+          <div class="catalog-heading">
+            <div>
+              <div class="eyebrow">
+                <span class="tiny-line"></span> A55X · TEST CHANNEL
+              </div>
+              <h1>Сборки <span>для своих.</span></h1>
+              <p class="muted">
+                Выбери ветку. Изучи изменения. Проверь на устройстве.
+              </p>
+            </div>
+            <div class="catalog-mark" aria-hidden="true">/ A55</div>
+          </div>
+          <div class="catalog-toolbar">
+            <div class="tabs" role="group" aria-label="Ветка OrangeFox">
+              <button
+                class="tab active"
+                data-branch="all"
+                type="button"
+                aria-pressed="true"
+              >
+                Все сборки</button
+              ><button
+                class="tab"
+                data-branch="16.0"
+                type="button"
+                aria-pressed="false"
+              >
+                Fox 16.0</button
+              ><button
+                class="tab"
+                data-branch="14.1"
+                type="button"
+                aria-pressed="false"
+              >
+                Fox 14.1</button
+              ><button
+                class="tab"
+                data-branch="12.1"
+                type="button"
+                aria-pressed="false"
+              >
+                Fox 12.1
+              </button>
+            </div>
+            <label class="search"
+              ><span aria-hidden="true">⌕</span
+              ><input
+                id="search"
+                type="search"
+                placeholder="Найти сборку…"
+                aria-label="Поиск сборок"
+            /></label>
+          </div>
+          <div class="list-heading">
+            <span id="build-count">Загрузка сборок…</span
+            ><label class="archive-toggle"
+              ><input id="show-archive" type="checkbox" />Показать архив</label
+            >
+          </div>
+          <p id="catalog-error" class="form-error" role="alert" hidden></p>
+          <div id="build-list" class="build-list" aria-live="polite"></div>
+          <div id="empty" class="empty" hidden>
+            <span aria-hidden="true">[ · · · ]</span>
+            <h2>Здесь пока тихо.</h2>
+            <p class="muted">
+              Сборки появятся после публикации.<br />Если включён фильтр,
+              попробуй другую ветку или поиск.
+            </p>
+          </div>
+          <div class="tester-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <p>
+              <strong>Это тестовые сборки.</strong> Перед прошивкой сохрани
+              важные данные. Если заметишь проблему, передай мейнтейнеру версию
+              сборки и recovery.log.
+            </p>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <span
+          >© <span id="year"></span> EgaschNSK
+          <span class="footer-divider">/</span> Fox Builds</span
+        ><span>Неофициальные тестовые сборки OrangeFox.</span>
+      </footer>
+    </div>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <template id="build-template">
+      <article class="build-card">
+        <div class="build-top">
+          <div class="build-meta">
+            <span class="build-branch"></span><span class="build-badge"></span>
+          </div>
+          <time class="build-date"></time>
+        </div>
+        <div class="build-main">
+          <div>
+            <h2 class="build-title"></h2>
+            <p class="build-device muted"></p>
+          </div>
+          <button class="button download" type="button">
+            Скачать <span aria-hidden="true">↓</span>
+          </button>
+        </div>
+        <div class="build-specs">
+          <span class="build-version"></span><span class="build-size"></span
+          ><span class="build-file"></span>
+        </div>
+        <details>
+          <summary>Что изменилось <span aria-hidden="true">+</span></summary>
+          <ul class="changelog"></ul>
+        </details>
+        <div class="hash-row">
+          <span>SHA256</span><code class="build-hash"></code
+          ><button class="copy-hash" type="button">Копировать</button>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>
